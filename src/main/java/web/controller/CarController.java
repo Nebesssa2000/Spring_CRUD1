@@ -17,21 +17,18 @@ import web.config.DAO.CarDAOImp;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @FieldDefaults(makeFinal = true,level = AccessLevel.PRIVATE)
-@NoArgsConstructor
 @Controller
 public class CarController {
 
     CarDAO carDAO = new CarDAOImp();
     CarServiceImp serviceImp = new CarServiceImp();
-// сервис через @autowired
 
     @GetMapping("/car")
     public String returnCars(@RequestParam(value = "count", defaultValue = "5") int count, Model model) {
-        List
 
-        carList = serviceImp.getCarCount(carDAO.addList(), count);
+        List<Car> carList = serviceImp.getCarCount(carDAO.addList(), count);
         model.addAttribute("carList", carList);
 
         return "Cars/cars";

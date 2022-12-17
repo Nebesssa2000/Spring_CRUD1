@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 import web.Model.Car;
+import web.config.DAO.CarDAO;
+import web.config.DAO.CarDAOImp;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,12 +17,17 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Service
 public class CarServiceImp implements CarService {
-// list сюда
+    CarDAO carDAO = new CarDAOImp();
+
+    @Override
+    public List<Car> addList() {
+        return carDAO.addList();
+    }
+
+    // list сюда
     @Override
     public List<Car> getCarCount(List<Car> carList, int count) {
-        return (count == 0 || count > 5) ? carList
-                : carList.stream().limit(count).
-                collect(Collectors.toList());
+        return carDAO.getCarCount(carList, count);
 
     }
 }
