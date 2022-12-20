@@ -1,33 +1,32 @@
 package web.Service;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import web.Model.Car;
-import web.config.DAO.CarDAO;
-import web.config.DAO.CarDAOImp;
+import web.DAO.CarDAO;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Service
 public class CarServiceImp implements CarService {
-    CarDAO carDAO = new CarDAOImp();
+    CarDAO carDAO;
+
+    public CarServiceImp(CarDAO carDAO) {
+        this.carDAO = carDAO;
+    }
 
     @Override
     public List<Car> addList() {
         return carDAO.addList();
     }
 
-    // list сюда
     @Override
-    public List<Car> getCarCount(List<Car> carList, int count) {
-        return carDAO.getCarCount(carList, count);
+    public List<Car> getCarCount(int count) {
+        return carDAO.getCarCount(carDAO.addList(), count);
 
     }
 }

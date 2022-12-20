@@ -1,4 +1,4 @@
-package web.config.DAO;
+package web.DAO;
 
 import web.Model.Car;
 

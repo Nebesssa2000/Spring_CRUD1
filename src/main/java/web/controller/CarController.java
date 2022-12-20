@@ -2,19 +2,15 @@ package web.controller;
 
 
 import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.Model.Car;
-import web.Service.CarServiceImp;
-import web.config.DAO.CarDAO;
-import web.config.DAO.CarDAOImp;
+import web.Service.CarService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,13 +18,17 @@ import java.util.List;
 @Controller
 public class CarController {
 
-    CarDAO carDAO = new CarDAOImp();
-    CarServiceImp serviceImp = new CarServiceImp();
+    CarService service;
+
+    @Autowired
+    public CarController(CarService service) {
+        this.service = service;
+    }
 
     @GetMapping("/car")
     public String returnCars(@RequestParam(value = "count", defaultValue = "5") int count, Model model) {
 
-        List<Car> carList = serviceImp.getCarCount(carDAO.addList(), count);
+        List<Car> carList = service.getCarCount(count);
         model.addAttribute("carList", carList);
 
         return "Cars/cars";

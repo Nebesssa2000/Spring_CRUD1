@@ -1,4 +1,4 @@
-package web.config.DAO;
+package web.DAO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 @Repository
-public class CarDAOImp implements CarDAO{
+public class CarDAOImp implements CarDAO {
     @Override
     public List<Car> addList() {
         List<Car> carList = new ArrayList<>();
